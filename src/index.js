@@ -1,9 +1,9 @@
-import { I2CBus } from '@johntalton/and-other-deligths'
+//import { I2CBus } from '@johntalton/and-other-deligths'
 
-export class I2CBusExcameraI2cDriver extends I2CBus {
+export class I2CBusExcameraI2CDriver {
 	#driver
 
-	static from(driver) { return new I2CBusExcameraI2cDriver(driver) }
+	static from(driver) { return new I2CBusExcameraI2CDriver(driver) }
 
 	constructor(driver) { this.#driver = driver }
 
