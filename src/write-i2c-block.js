@@ -1,4 +1,4 @@
-export async function writeRegister(driver, addr, reg, sourceBuffer) {
+export async function writeRegister(driver, addr, reg, bufferSource) {
 	//console.log('* start write', addr)
 	const startOk = await driver.start(addr, false)
 	//console.log({ startOk })
@@ -7,8 +7,8 @@ export async function writeRegister(driver, addr, reg, sourceBuffer) {
 	const writeAddrOk = await driver.write(1, Uint8Array.from([ reg ]))
 	//console.log({ writeAddrOk })
 
-	const length = sourceBuffer.byteLength
-	const writeOk = await driver.write(length, sourceBuffer)
+	const length = bufferSource.byteLength
+	const writeOk = await driver.write(length, bufferSource)
 	//console.log({ writeOk })
 
 	//console.log('*stop')
@@ -16,6 +16,6 @@ export async function writeRegister(driver, addr, reg, sourceBuffer) {
 
 	return {
 		bytesWritten: length,
-		buffer: sourceBuffer.buffer
+		buffer: bufferSource.buffer
 	}
 }

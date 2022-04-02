@@ -1,14 +1,14 @@
-export async function i2cWrite(driver, address, length, sourceBuffer) {
+export async function i2cWrite(driver, address, length, bufferSource) {
 	const startOk = await driver.start(address, false)
 	if (startOk.ack !== 1) { throw new Error('no start ack') }
 
-	console.log({ sourceBuffer })
-	await driver.write(length, sourceBuffer)
+	console.log({ bufferSource })
+	await driver.write(length, bufferSource)
 
 	await driver.stop()
 
 	return {
 		bytesWritten: length,
-		buffer: sourceBuffer.buffer
+		buffer: bufferSource.buffer
 	}
 }
