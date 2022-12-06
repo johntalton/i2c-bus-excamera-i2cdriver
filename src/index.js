@@ -1,5 +1,10 @@
 //import { I2CBus } from '@johntalton/and-other-deligths'
 
+import { i2cRead } from './i2c-read.js'
+import { i2cWrite } from './i2c-write.js'
+import { readI2cBlock } from './read-i2c-block.js'
+import { writeI2cBlock } from './write-i2c-block.js'
+
 export class I2CBusExcameraI2CDriver {
 	#driver
 
@@ -14,14 +19,14 @@ export class I2CBusExcameraI2CDriver {
 		return i2cWrite(this.#driver, address, 1, Uint8Array.from([ byteValue ]))
 	}
 
-	async readI2CBlock(address, cmd, length, bufferSource) {
+	async readI2cBlock(address, cmd, length, bufferSource) {
 		// todo read back into bufferSource and return
-		return readRegister(this.#driver, address, cmd, length)
+		return readI2cBlock(this.#driver, address, cmd, length)
 	}
 
 	async writeI2cBlock(address, cmd, length, bufferSource) {
 		// todo ... create view / slice buffer source to length
-		return writeRegister(this.#driver, address, cmd, bufferSource)
+		return writeI2cBlock(this.#driver, address, cmd, bufferSource)
 	}
 
 	async i2cRead(address, length, bufferSource) {
