@@ -1,6 +1,6 @@
 export async function i2cRead(driver, address, length, readBuffer) {
 	const info = await driver._transmitStatusInfo()
-	console.log({ info })
+	// console.log({ info })
 
 	if(info.sda === 0 || info.scl === 0) {
 		await driver.resetBus()
@@ -17,7 +17,7 @@ export async function i2cRead(driver, address, length, readBuffer) {
 		const bytesRead = buffer.byteLength
 
 		const stopOk = await driver.stop()
-		console.log({ stopOk })
+		// console.log({ stopOk })
 
 		return {
 			bytesRead, buffer: buffer.buffer

@@ -1,5 +1,5 @@
 export async function writeI2cBlock(driver, addr, reg, bufferSource) {
-	console.log('writeI2cBlock', reg, bufferSource)
+	// console.log('writeI2cBlock', reg, bufferSource)
 
 	//console.log('* start write', addr)
 	const startOk = await driver.start(addr, false)
@@ -11,11 +11,11 @@ export async function writeI2cBlock(driver, addr, reg, bufferSource) {
 
 	const length = bufferSource.byteLength
 	const writeOk = await driver.write(length, bufferSource)
-	console.log({ writeOk })
+	// console.log({ writeOk })
 
-	console.log('*stop')
+	// console.log('*stop')
 	await driver.stop()
-	console.log('stop')
+	// console.log('stop')
 
 	return {
 		bytesWritten: length,
