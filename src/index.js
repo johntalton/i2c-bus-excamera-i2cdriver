@@ -12,6 +12,11 @@ export class I2CBusExcameraI2CDriver {
 
 	constructor(driver) { this.#driver = driver }
 
+	get name() {
+		// _transmitStatusInfo identifier / serial
+		return 'excamera:bus'
+	}
+
 	close() {}
 
 	async sendByte(address, byteValue) {
