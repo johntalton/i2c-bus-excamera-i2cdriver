@@ -5,6 +5,7 @@
   "exports": {
     ".": "./src/index.js"
   },
+  "files": [ "./src/**/*.js"],
   "scripts": {
 
   },
