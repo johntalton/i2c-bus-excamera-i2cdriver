@@ -9,8 +9,6 @@
 
   },
   "dependencies": {
-    "@johntalton/and-other-delights": "^6.0.0",
-    "@johntalton/bitsmush": "^1.0.0",
-    "@johntalton/excamera-i2cdriver": "file:../excamera-i2cdriver"
+
   }
 }

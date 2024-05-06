@@ -1,5 +1,3 @@
-//import { I2CBus } from '@johntalton/and-other-deligths'
-
 import { i2cRead } from './i2c-read.js'
 import { i2cWrite } from './i2c-write.js'
 import { readI2cBlock } from './read-i2c-block.js'
@@ -20,7 +18,7 @@ export class I2CBusExcameraI2CDriver {
 	close() {}
 
 	async sendByte(address, byteValue) {
-		// is this equilvilant
+		// is this equivalent?
 		return i2cWrite(this.#driver, address, 1, Uint8Array.from([ byteValue ]))
 	}
 
