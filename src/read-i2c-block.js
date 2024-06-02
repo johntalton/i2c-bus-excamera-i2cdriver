@@ -1,23 +1,36 @@
+import {
+	assertNumber
+ } from './util/assert.js'
+import { readyOrReset } from './util/ready.js'
+import { write } from './util/write.js'
 
 /**
- * @param {number} addr
- * @param {number|ArrayBufferLike|ArrayBufferView} reg
+ * @param {number} address
+ * @param {number} register
  * @param {number} length
  */
-export async function readI2cBlock(driver, addr, reg, length) {
-	const startOk = await driver.start(addr, false)
-
-	const regBuffer = typeof reg === 'number' ? Uint8Array.from([ reg ]) : reg
-	const writeAddrOk = await driver.write(regBuffer.byteLength, regBuffer)
-
-	const startReadOk = await driver.start(addr, true)
-
-	const buffer = await driver.readNACKFinal(length)
-	const bytesRead = buffer.byteLength
-
-	const stopOk = await driver.stop()
-
-	return {
-		bytesRead, buffer: buffer.buffer
+export async function readI2cBlock(driver, address, register, length) {
+	if(length === 1) {
+		await readyOrReset(driver)
+		const value = await driver.readRegister(address, register, length)
+		return {
+			bytesRead: 1,
+			buffer: Uint8Array.from([ value ]).buffer
+		}
 	}
+
+	assertNumber(register)
+
+	return write(driver, address, 1, Uint8Array.from([ register ]), async () => {
+		const startReadOk = await driver.start(address, true)
+		if (startReadOk.ack !== 1) { throw new Error('no start ack') }
+
+		const buffer = await driver.readNACKFinal(length)
+		// console.log('readI2cBlock', address, register, length, [...new Uint8Array(buffer)])
+
+		return {
+			bytesRead: buffer.byteLength,
+			buffer
+		}
+	})
 }

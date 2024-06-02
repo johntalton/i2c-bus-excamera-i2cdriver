@@ -1,31 +1,28 @@
-
-function isArrayBufferLike(thing) {
-	if(typeof thing === 'ArrayBuffer') { return true }
-	if(thing.byteLength !== undefined && thing.buffer !== undefined) { return true }
-	if(ArrayBuffer.isView(thing)) { return true}
-
-	return false
-}
+import { ExcameraLabsI2CDriverI2C } from '@johntalton/excamera-i2cdriver'
+import {
+	assertNumber,
+	assertBufferSource
+ } from './util/assert.js'
+import { write } from './util/write.js'
 
 /**
- * @param {number} addr
- * @param {*} driver
- * @param {number|ArrayBufferLike|ArrayBufferView} reg
+ * @param {number} address
+ * @param {ExcameraLabsI2CDriverI2C} driver
+ * @param {number} register
  * @param {ArrayBufferLike|ArrayBufferView} bufferSource
  */
-export async function writeI2cBlock(driver, addr, reg, bufferSource) {
-	const startOk = await driver.start(addr, false)
+export async function writeI2cBlock(driver, address, register, length, bufferSource) {
+	assertNumber(register)
+	assertBufferSource(bufferSource)
 
-	const regBuffer = isArrayBufferLike(reg) ? reg : Uint8Array.from([ reg ])
-	const writeAddrOk = await driver.write(regBuffer.byteLength, regBuffer.buffer)
+	const scratch = new Blob([ Uint8Array.from([ register ]), bufferSource ])
+	const buffer = await scratch.arrayBuffer()
 
-	const length = bufferSource.byteLength
-	const writeOk = await driver.write(length, bufferSource)
-
-	await driver.stop()
-
-	return {
-		bytesWritten: length,
-		buffer: ArrayBuffer.isView(bufferSource) ? bufferSource.buffer : bufferSource
-	}
+	return write(driver, address, buffer.byteLength, buffer, () => {
+		// console.log('writeI2cBlock', address, register, length, [...new Uint8Array(buffer)])
+		return {
+			bytesWritten: length,
+			buffer: bufferSource
+		}
+	})
 }

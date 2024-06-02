@@ -28,8 +28,7 @@ export class I2CBusExcameraI2CDriver {
 	}
 
 	async writeI2cBlock(address, cmd, length, bufferSource) {
-		// todo ... create view / slice buffer source to length
-		return writeI2cBlock(this.#driver, address, cmd, bufferSource)
+		return writeI2cBlock(this.#driver, address, cmd, length, bufferSource)
 	}
 
 	async i2cRead(address, length, bufferSource) {
