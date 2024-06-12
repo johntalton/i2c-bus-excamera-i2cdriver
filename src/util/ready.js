@@ -1,5 +1,7 @@
 
 export async function readyOrReset(driver) {
+	// return // fast read
+
   const info = await driver.transmitStatusInfo()
 
 	if(info.sda === 0 || info.scl === 0) {

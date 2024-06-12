@@ -22,17 +22,16 @@ export class I2CBusExcameraI2CDriver {
 		return i2cWrite(this.#driver, address, 1, Uint8Array.from([ byteValue ]))
 	}
 
-	async readI2cBlock(address, cmd, length, bufferSource) {
-		// todo read back into bufferSource and return
-		return readI2cBlock(this.#driver, address, cmd, length)
+	async readI2cBlock(address, cmd, length, readBuffer) {
+		return readI2cBlock(this.#driver, address, cmd, length, readBuffer)
 	}
 
 	async writeI2cBlock(address, cmd, length, bufferSource) {
 		return writeI2cBlock(this.#driver, address, cmd, length, bufferSource)
 	}
 
-	async i2cRead(address, length, bufferSource) {
-		return i2cRead(this.#driver, address, length, bufferSource)
+	async i2cRead(address, length, readBuffer) {
+		return i2cRead(this.#driver, address, length, readBuffer)
 	}
 
 	async i2cWrite(address, length, bufferSource) {

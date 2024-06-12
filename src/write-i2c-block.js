@@ -19,7 +19,6 @@ export async function writeI2cBlock(driver, address, register, length, bufferSou
 	const buffer = await scratch.arrayBuffer()
 
 	return write(driver, address, buffer.byteLength, buffer, () => {
-		// console.log('writeI2cBlock', address, register, length, [...new Uint8Array(buffer)])
 		return {
 			bytesWritten: length,
 			buffer: bufferSource

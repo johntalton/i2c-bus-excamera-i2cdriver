@@ -19,8 +19,9 @@ export async function startStop(driver, address, read, cb) {
 		throw new Error('no start ack')
 	}
 
-	return Promise.resolve(cb())
-		.then(async result => {
+	return Promise.resolve()
+		.then(() => cb())
+		.finally(async result => {
 			await driver.stop()
 			return result
 		})
