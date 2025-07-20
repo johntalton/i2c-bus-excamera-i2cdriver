@@ -37,4 +37,8 @@ export class I2CBusExcameraI2CDriver {
 	async i2cWrite(address, length, bufferSource) {
 		return i2cWrite(this.#driver, address, length, bufferSource)
 	}
+
+	async scan() {
+		return await this.#driver.scan().filter(({ acked }) => acked).map(({ address }) => address)
+	}
 }

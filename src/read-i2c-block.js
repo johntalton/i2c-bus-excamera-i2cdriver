@@ -1,3 +1,4 @@
+import { ExcameraLabsI2CDriverI2C } from '@johntalton/excamera-i2cdriver'
 import {
 	assertNumber
  } from './util/assert.js'
