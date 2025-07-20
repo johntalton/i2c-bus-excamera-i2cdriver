@@ -39,6 +39,10 @@ export class I2CBusExcameraI2CDriver {
 	}
 
 	async scan() {
-		return await this.#driver.scan().filter(({ acked }) => acked).map(({ address }) => address)
+		// raw driver scan returns list of all devices (dev) and acked (ack) status
+		//  filter/map down to match normalized scan method
+		return (await this.#driver.scan())
+			.filter(({ ack }) => ack === 1)
+			.map(({ dev }) => dev)
 	}
 }
