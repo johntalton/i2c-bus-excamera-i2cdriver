@@ -8,7 +8,7 @@ const CHUNK_SIZE = 64
 
 /**
  * @param {ExcameraLabsI2CDriverI2C} driver
- * @param {ArrayBufferLike|ArrayBufferView|undefined} readBufferOrUndefined
+ * @param {ArrayBuffer|ArrayBufferView|undefined} readBufferOrUndefined
  */
 export async function i2cRead(driver, address, length, readBufferOrUndefined = undefined) {
 	assertNumber(length)

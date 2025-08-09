@@ -6,6 +6,11 @@ export function assertNumber(value) {
   if(typeof value !== 'number') { throw new Error('value must be a number') }
 }
 
+export function assertArray(ary, length) {
+  if(!Array.isArray(ary)) { throw new Error('value must be an array') }
+  if(ary.length !== length) { throw new Error('array must be exact length') }
+}
+
 export function assertBufferSource(buffer) {
   if(ArrayBuffer.isView(buffer)) { return true }
   if(buffer instanceof ArrayBuffer) { return true }
