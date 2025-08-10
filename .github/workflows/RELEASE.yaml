@@ -1,14 +1,14 @@
 name: Publish (NPM)
 on:
   release:
-    types: [created]
+    types: [published]
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     # Publish to NPM
-    - uses: actions/setup-node@v4.0.2
+    - uses: actions/setup-node@v4
       with:
         registry-url: 'https://registry.npmjs.org/'
     - run: npm install
