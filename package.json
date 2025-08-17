@@ -1,6 +1,6 @@
 {
   "name": "@johntalton/i2c-bus-excamera-i2cdriver",
-  "version": "3.1.0",
+  "version": "4.0.0",
   "type": "module",
   "exports": {
     ".": "./src/index.js"
@@ -10,6 +10,9 @@
 
   },
   "peerDependencies": {
-    "@johntalton/excamera-i2cdriver": "^3.0.2"
+    "@johntalton/excamera-i2cdriver": "^3.1.0"
+  },
+  "devDependencies": {
+    "@johntalton/and-other-delights": "^8.6.0"
   }
 }

@@ -1,4 +1,3 @@
-import { ExcameraLabsI2CDriverI2C } from '@johntalton/excamera-i2cdriver'
 import {
 	assertNumber,
 	assertBufferSource,
@@ -7,10 +6,15 @@ import {
 import { write } from './util/write.js'
 
 /**
- * @param {number} address
+ * @import { ExcameraLabsI2CDriverI2C } from '@johntalton/excamera-i2cdriver'
+ * @import { I2CAddress, I2CBufferSource, I2CWriteResult } from '@johntalton/and-other-delights'
+ */
+
+/**
+ * @param {I2CAddress} address
  * @param {ExcameraLabsI2CDriverI2C} driver
  * @param {number} register
- * @param {ArrayBuffer|ArrayBufferView} bufferSource
+ * @param {I2CBufferSource} bufferSource
  */
 export async function writeI2cBlock(driver, address, register, length, bufferSource) {
 	assertBufferSource(bufferSource)
@@ -20,7 +24,7 @@ export async function writeI2cBlock(driver, address, register, length, bufferSou
 	const scratch = new Blob([ registerBuffer, bufferSource ])
 	const buffer = await scratch.arrayBuffer()
 
-	return write(driver, address, buffer.byteLength, buffer, () => {
+	return write(driver, address, buffer.byteLength, buffer, async () => {
 		return {
 			bytesWritten: length,
 			buffer: bufferSource

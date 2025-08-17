@@ -1,4 +1,3 @@
-import { ExcameraLabsI2CDriverI2C } from '@johntalton/excamera-i2cdriver'
 import {
 	assertArray,
 	assertNumber
@@ -7,11 +6,17 @@ import { readyOrReset } from './util/ready.js'
 import { write } from './util/write.js'
 
 /**
- * @param {number} address
+ * @import { ExcameraLabsI2CDriverI2C } from '@johntalton/excamera-i2cdriver'
+ * @import { I2CAddress, I2CReadResult } from '@johntalton/and-other-delights'
+ * */
+
+/**
+ * @param {I2CAddress} address
  * @param {number|[number, number]} register
  * @param {number} length
  * @param {ArrayBuffer|ArrayBufferView|undefined} readBufferOrUndefined
  * @param {ExcameraLabsI2CDriverI2C} driver
+ * @returns {Promise<I2CReadResult>}
  */
 export async function readI2cBlock(driver, address, register, length, readBufferOrUndefined = undefined) {
 	// if(readBufferOrUndefined === undefined) { console.log('bus alloc') }
@@ -24,7 +29,7 @@ export async function readI2cBlock(driver, address, register, length, readBuffer
 		//  termination of the process as the command finish on device with a
 		//  valid stop, where as our software version bellow may not always
 		await readyOrReset(driver)
-		return driver.readRegister(address, register, length, readBuffer)
+		return driver.readRegister(address, register, length, readBuffer) // TODO this does not support 16-bit reads
 	}
 
 	if(Array.isArray(register)) { assertArray(register, 2) } else { assertNumber(register) }

@@ -3,16 +3,26 @@ import { i2cWrite } from './i2c-write.js'
 import { readI2cBlock } from './read-i2c-block.js'
 import { writeI2cBlock } from './write-i2c-block.js'
 
+/**
+ * @import { I2CBus } from '@johntalton/and-other-delights'
+ * @import { ExcameraLabsI2CDriverI2C } from '@johntalton/excamera-i2cdriver'
+ * */
+
+/** @implements {I2CBus} */
 export class I2CBusExcameraI2CDriver {
+	/** @type {ExcameraLabsI2CDriverI2C} */
 	#driver
 
 	static from(driver) { return new I2CBusExcameraI2CDriver(driver) }
 
 	constructor(driver) { this.#driver = driver }
 
+	get supportsScan() { return true }
+	get supportsMultiByteDataAddress() { return true}
+
 	get name() {
 		// _transmitStatusInfo identifier / serial
-		return 'excamera:bus'
+		return 'Excamera-I2CDriver'
 	}
 
 	close() {}

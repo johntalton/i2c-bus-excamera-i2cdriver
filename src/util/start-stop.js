@@ -1,11 +1,17 @@
-import { ExcameraLabsI2CDriverI2C } from '@johntalton/excamera-i2cdriver'
 import { assertDriver, assertNumber } from './assert.js'
 import { readyOrReset } from './ready.js'
 
 /**
+ * @import { ExcameraLabsI2CDriverI2C } from '@johntalton/excamera-i2cdriver'
+ * @import { I2CAddress } from '@johntalton/and-other-delights'
+*/
+
+/**
+ * @template T
  * @param {ExcameraLabsI2CDriverI2C} driver
- * @param {number} address
+ * @param {I2CAddress} address
  * @param {boolean} read
+ * @param {function(): Promise<T>} cb
 */
 export async function startStop(driver, address, read, cb) {
 	assertDriver(driver)
@@ -13,8 +19,8 @@ export async function startStop(driver, address, read, cb) {
 
 	await readyOrReset(driver)
 
-	const startOk = await driver.start(address, read)
-	if (startOk.ack !== 1) {
+	const { ack } = await driver.start(address, read)
+	if (ack !== 1) {
 		await driver.stop()
 		throw new Error('no start ack')
 	}
