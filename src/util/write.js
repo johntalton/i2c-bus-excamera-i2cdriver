@@ -19,8 +19,7 @@ export async function write(driver, address, length, buffer, cb) {
 	assertNumber(length)
 	assertBufferSource(buffer)
 
-  return startStop(driver, address, false, async () => {
-		// console.log('\ttryWrite', address, length, [...new Uint8Array(buffer)] )
+	return startStop(driver, address, false, async () => {
 		const writeOk = await driver.write(length, buffer)
 		if(writeOk.ack != 1) { throw new Error('write not acked') }
 

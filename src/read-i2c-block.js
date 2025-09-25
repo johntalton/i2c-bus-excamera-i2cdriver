@@ -22,6 +22,10 @@ export async function readI2cBlock(driver, address, register, length, readBuffer
 	// if(readBufferOrUndefined === undefined) { console.log('bus alloc') }
 	const readBuffer = readBufferOrUndefined ?? new ArrayBuffer(length)
 
+	// if(readBuffer !== undefined && ArrayBuffer.isView(readBuffer) && readBuffer.buffer.detached) { throw new Error('detached') }
+	// if(readBuffer !== undefined && !ArrayBuffer.isView(readBuffer) && readBuffer.detached) { throw new Error('detached') }
+
+
 	if(false) {
 		// note - while this method is much faster as it has an optimized call
 		//  in the driver, it suffers from not checking the ACK bit and thus
