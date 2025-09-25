@@ -21,7 +21,7 @@ export async function write(driver, address, length, buffer, cb) {
 
 	return startStop(driver, address, false, async () => {
 		const writeOk = await driver.write(length, buffer)
-		if(writeOk.ack != 1) { throw new Error('write not acked') }
+		if(writeOk.ack !== 1) { throw new Error('write not acked') }
 
 		return cb()
   })

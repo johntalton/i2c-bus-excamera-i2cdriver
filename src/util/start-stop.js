@@ -27,8 +27,5 @@ export async function startStop(driver, address, read, cb) {
 
 	return Promise.resolve()
 		.then(() => cb())
-		.finally(async result => {
-			await driver.stop()
-			return result
-		})
+		.finally(() => driver.stop())
 }

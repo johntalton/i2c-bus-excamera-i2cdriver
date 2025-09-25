@@ -14,14 +14,13 @@ export const CHUNK_SIZE = 64
  * @param {ExcameraLabsI2CDriverI2C} driver
  * @param {I2CAddress} address
  * @param {number} length
- * @param {I2CBufferSource|undefined} [readBufferOrUndefined]
+ * @param {I2CBufferSource} [readBufferOrUndefined]
  */
 export async function i2cRead(driver, address, length, readBufferOrUndefined = undefined) {
 	assertNumber(length)
 
 	if(length > CHUNK_SIZE) { console.warn('chunk size exceed') }
 
-	// if(readBufferOrUndefined === undefined) { console.log('bus alloc') }
 	const readBuffer = readBufferOrUndefined ?? new ArrayBuffer(length)
 
 	return startStop(driver, address, true, async () => {

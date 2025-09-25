@@ -1,16 +1,29 @@
+/**
+ * @param {any} driver
+ */
 export function assertDriver(driver) {
   if(driver === undefined) { throw new Error('driver undefined') }
 }
 
+/**
+ * @param {any} value
+ */
 export function assertNumber(value) {
   if(typeof value !== 'number') { throw new Error('value must be a number') }
 }
 
+/**
+ * @param {any} ary
+ * @param {number} length
+ */
 export function assertArray(ary, length) {
   if(!Array.isArray(ary)) { throw new Error('value must be an array') }
   if(ary.length !== length) { throw new Error('array must be exact length') }
 }
 
+/**
+ * @param {any} buffer
+ */
 export function assertBufferSource(buffer) {
   if(ArrayBuffer.isView(buffer)) { return true }
   if(buffer instanceof ArrayBuffer) { return true }

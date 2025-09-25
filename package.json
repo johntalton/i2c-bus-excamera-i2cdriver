@@ -1,6 +1,6 @@
 {
   "name": "@johntalton/i2c-bus-excamera-i2cdriver",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -11,7 +11,7 @@
 
   },
   "peerDependencies": {
-    "@johntalton/excamera-i2cdriver": "^3.1.3"
+    "@johntalton/excamera-i2cdriver": "^3.1.4"
   },
   "devDependencies": {
     "@johntalton/and-other-delights": "^8.6.6"
